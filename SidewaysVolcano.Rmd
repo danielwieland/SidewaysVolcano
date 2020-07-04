@@ -328,7 +328,8 @@ for(i in 1:length(patientid))
 ## Searching for gene of interest in the mRNA Seq data
 
 ```{r ratio_gene_search, include=TRUE, error=FALSE}
-iden=which(df.map$V1=="COL1A1")-1
+ratio_gene="COL1A1"
+iden=which(df.map$V1==ratio_gene)-1
 
 ```
 
@@ -407,11 +408,11 @@ scaling_survival1=subset(LMNB1_km, LMNB1_km[,1]<0.05,LMNB1_km[,5]<1)
 per=dim(scaling_survival1)[1]/dim(LMNB1_km)[1]
 
 ```
-Percentage of genes scaling strongly with `r gene_of_interest` that predict significantly poor survival=`r per*100`
+Percentage of genes scaling strongly with `r ratio_gene` that predict significantly poor survival=`r per*100`
 
 ## Survival Volcano for Robust regression genes
 
-```{r ratio_robust_regression_survival_volcano, fig.width=3}
+```{r ratio_robust_regression_survival_volcano, fig.width=10, fig.height=7}
 plot(-log2(as.double(kmsig2[,1])),log2(as.double(kmsig2[,5])),pch = 19,cex=0.3,col="grey",xlab='-log2(p-value)',ylab='log2(median survival factor change)')
 points(-log2(LMNB1_km[,1]),log2(LMNB1_km[,5]),pch = 19,cex=0.5,col="red")
 points(c(-log2(0.05),-log2(0.05),-log2(0.05)),-1:1,pch = 3,cex=1)
